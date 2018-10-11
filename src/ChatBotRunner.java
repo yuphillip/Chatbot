@@ -30,7 +30,7 @@ public class ChatBotRunner
 			//This example has only chatbot1
 
 
-			chatbot3.chatLoop(statement);
+			chatbot2.chatLoop(statement);
 
 
 			statement = in.nextLine();
