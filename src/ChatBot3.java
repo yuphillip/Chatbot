@@ -74,13 +74,13 @@ public class ChatBot3
 		}
 
 		// Response transforming I want to statement
-		else if (findKeyword(statement, "I want to", 0) >= 0)
+		else if (findKeyword(statement, "I want too", 0) >= 0)
 		{
 			response = transformIWantToStatement(statement);
 		}
-		else if (findKeyword(statement, "I want",0) >= 0)
+		else if (findKeyword(statement, "I wash my hands for",0) >= 0)
 		{
-			response = transformIWantStatement(statement);
+			response = transformIWashStatement(statement);
 		}	
 		else
 		{
@@ -119,7 +119,7 @@ public class ChatBot3
 	 * @param statement the user statement, assumed to contain "I want"
 	 * @return the transformed statement
 	 */
-	private String transformIWantStatement(String statement)
+	private String transformIWashStatement(String statement)
 	{
 		//  Remove the final period, if there is one
 		statement = statement.trim();
@@ -130,11 +130,12 @@ public class ChatBot3
 			statement = statement.substring(0, statement
 					.length() - 1);
 		}
-		int psn = findKeyword (statement, "I want", 0);
-		String restOfStatement = statement.substring(psn + 6).trim();
-		return "Would you really be happy if you had " + restOfStatement + "?";
+		int psn = findKeyword (statement, "I wash my hands for", 0);
+		String restOfStatement = statement.substring(psn + 19).trim();
+		return "What made you start to wash your hands for " + restOfStatement + "?";
 	}
-	
+
+
 	
 	/**
 	 * Take a statement with "I <something> you" and transform it into 
