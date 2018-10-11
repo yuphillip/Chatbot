@@ -33,9 +33,18 @@ public class ChatBot2
 			//getResponse handles the user reply
 			System.out.println(getResponse(statement));
 
-
 		}
 
+	}
+
+	public double getBMI(double weight, double height, String statement)
+	{
+		System.out.println("What is your weight in kg?");
+		weight = Double.parseDouble(statement);
+		System.out.println("What is your height in meters?");
+		height = Double.parseDouble(statement);
+		double bmi = weight / (height * height);
+		return bmi;
 	}
 	/**
 	 * Get a default greeting 	
@@ -43,7 +52,7 @@ public class ChatBot2
 	 */	
 	public String getGreeting()
 	{
-		return "Hi, what is up?";
+		return "Hi, what is up!	";
 	}
 	
 	/**
@@ -75,7 +84,7 @@ public class ChatBot2
 		}
 
 		// Response transforming I want to statement
-		else if (findKeyword(statement, "I want to", 0) >= 0)
+		else if (findKeyword(statement, "I want to play", 0) >= 0)
 		{
 			response = transformIWantToStatement(statement);
 		}
@@ -108,9 +117,9 @@ public class ChatBot2
 			statement = statement.substring(0, statement
 					.length() - 1);
 		}
-		int psn = findKeyword (statement, "I want to", 0);
-		String restOfStatement = statement.substring(psn + 9).trim();
-		return "Why do you want to " + restOfStatement + "?";
+		int psn = findKeyword (statement, "I want to play", 0);
+		String restOfStatement = statement.substring(psn + 14).trim();
+		return "Why do you want to play " + restOfStatement + "?";
 	}
 
 	
@@ -273,21 +282,5 @@ public class ChatBot2
 	private String [] randomAngryResponses = {"Bahumbug.", "Harumph", "The rage consumes me!"};
 	private String [] randomHappyResponses = {"H A P P Y, what's that spell?", "Today is a good day", "You make me feel like a brand new pair of shoes."};
 
-
-	private String sportsStatement(String statement)
-	{
-		//  Remove the final period, if there is one
-		statement = statement.trim();
-		String lastChar = statement.substring(statement
-				.length() - 1);
-		if (lastChar.equals("."))
-		{
-			statement = statement.substring(0, statement
-					.length() - 1);
-		}
-		int psn = findKeyword (statement, "I want to", 0);
-		String restOfStatement = statement.substring(psn + 9).trim();
-		return "Why do you want to " + restOfStatement + "?";
-	}
 }
 
