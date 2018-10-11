@@ -20,6 +20,7 @@ public class ChatBotRunner
 
 		Scanner in = new Scanner (System.in);
 		System.out.println("Welcome to the chatbot, nice to meet you.");
+		System.out.println("Would you like to talk about exercise, sleep, or hygiene?");
 		String statement = in.nextLine();
 
 
@@ -27,11 +28,13 @@ public class ChatBotRunner
 		{
 			//Use Logic to control which chatbot is handling the conversation\
 			//This example has only chatbot1
-
-
-
-			chatbot3.chatLoop(statement);
-
+			String topic = "";
+			if(topic == "exercise")
+				chatbot2.chatLoop(statement);
+			else if (topic == "sleep")
+				chatbot3.chatLoop(statement);
+			else
+				chatbot1.chatLoop(statement);
 
 			statement = in.nextLine();
 

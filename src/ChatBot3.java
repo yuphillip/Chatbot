@@ -69,18 +69,18 @@ public class ChatBot3
 		
 		else if (findKeyword(statement, "levin") >= 0)
 		{
-			response = "More like LevinTheDream ?";
+			response = "More like LevinTheDream amiright?";
 			emotion++;
 		}
 
 		// Response transforming I want to statement
-		else if (findKeyword(statement, "I sleep", 0) >= 0)
+		else if (findKeyword(statement, "I want too", 0) >= 0)
 		{
-			response = transformISleepStatement(statement);
+			response = transformIWantToStatement(statement);
 		}
-		else if (findKeyword(statement, "I want",0) >= 0)
+		else if (findKeyword(statement, "I wash my hands for",0) >= 0)
 		{
-			response = transformIWantStatement(statement);
+			response = transformIWashStatement(statement);
 		}	
 		else
 		{
@@ -89,23 +89,14 @@ public class ChatBot3
 		
 		return response;
 	}
-
+	
 	/**
 	 * Take a statement with "I want to <something>." and transform it into 
 	 * "Why do you want to <something>?"
 	 * @param statement the user statement, assumed to contain "I want to"
 	 * @return the transformed statement
 	 */
-
-
-	
-	/**
-	 * Take a statement with "I want <something>." and transform it into 
-	 * "Would you really be happy if you had <something>?"
-	 * @param statement the user statement, assumed to contain "I want"
-	 * @return the transformed statement
-	 */
-	private String transformIWantStatement(String statement)
+	private String transformIWantToStatement(String statement)
 	{
 		//  Remove the final period, if there is one
 		statement = statement.trim();
@@ -116,11 +107,35 @@ public class ChatBot3
 			statement = statement.substring(0, statement
 					.length() - 1);
 		}
-		int psn = findKeyword (statement, "I want", 0);
-		String restOfStatement = statement.substring(psn + 6).trim();
-		return "Would you really be happy if you had " + restOfStatement + "?";
+		int psn = findKeyword (statement, "I want to", 0);
+		String restOfStatement = statement.substring(psn + 9).trim();
+		return "Why do you want to " + restOfStatement + "?";
 	}
+
 	
+	/**
+	 * Take a statement with "I want <something>." and transform it into 
+	 * "Would you really be happy if you had <something>?"
+	 * @param statement the user statement, assumed to contain "I want"
+	 * @return the transformed statement
+	 */
+	private String transformIWashStatement(String statement)
+	{
+		//  Remove the final period, if there is one
+		statement = statement.trim();
+		String lastChar = statement.substring(statement
+				.length() - 1);
+		if (lastChar.equals("."))
+		{
+			statement = statement.substring(0, statement
+					.length() - 1);
+		}
+		int psn = findKeyword (statement, "I wash my hands for", 0);
+		String restOfStatement = statement.substring(psn + 19).trim();
+		return "What made you start to wash your hands for " + restOfStatement + "?";
+	}
+
+
 	
 	/**
 	 * Take a statement with "I <something> you" and transform it into 

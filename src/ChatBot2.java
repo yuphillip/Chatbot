@@ -1,6 +1,8 @@
 import java.util.Random;
 import java.util.Scanner;
 
+//Kent Li - Exercise ChatBot
+
 /**
  * A program to carry on conversations with a human user.
  * This version:
@@ -31,9 +33,18 @@ public class ChatBot2
 			//getResponse handles the user reply
 			System.out.println(getResponse(statement));
 
-
 		}
 
+	}
+
+	public double getBMI(double weight, double height, String statement)
+	{
+		System.out.println("What is your weight in kg?");
+		weight = Double.parseDouble(statement);
+		System.out.println("What is your height in meters?");
+		height = Double.parseDouble(statement);
+		double bmi = weight / (height * height);
+		return bmi;
 	}
 	/**
 	 * Get a default greeting 	
@@ -41,7 +52,7 @@ public class ChatBot2
 	 */	
 	public String getGreeting()
 	{
-		return "Hi, what is up?";
+		return "Hi, what is up!	";
 	}
 	
 	/**
@@ -73,7 +84,7 @@ public class ChatBot2
 		}
 
 		// Response transforming I want to statement
-		else if (findKeyword(statement, "I want to", 0) >= 0)
+		else if (findKeyword(statement, "I want to play", 0) >= 0)
 		{
 			response = transformIWantToStatement(statement);
 		}
@@ -90,7 +101,7 @@ public class ChatBot2
 	}
 	
 	/**
-	 * Take a statement with "I want to <something>." and transform it into 
+	 * Take a statement with "I want to <something>." and transform it into
 	 * "Why do you want to <something>?"
 	 * @param statement the user statement, assumed to contain "I want to"
 	 * @return the transformed statement
@@ -106,9 +117,9 @@ public class ChatBot2
 			statement = statement.substring(0, statement
 					.length() - 1);
 		}
-		int psn = findKeyword (statement, "I want to", 0);
-		String restOfStatement = statement.substring(psn + 9).trim();
-		return "Why do you want to " + restOfStatement + "?";
+		int psn = findKeyword (statement, "I want to play", 0);
+		String restOfStatement = statement.substring(psn + 14).trim();
+		return "Why do you want to play " + restOfStatement + "?";
 	}
 
 	
@@ -230,7 +241,7 @@ public class ChatBot2
 	/**
 	 * Search for one word in phrase.  The search is not case sensitive.
 	 * This method will check that the given goal is not a substring of a longer string
-	 * (so, for example, "I know" does not contain "no").  The search begins at the beginning of the string.  
+	 * (so, for example, "I know" does not contain "no").  The search begins at the beginning of the string.
 	 * @param statement the string to search
 	 * @param goal the string to search for
 	 * @return the index of the first occurrence of goal in statement or -1 if it's not found
@@ -270,5 +281,6 @@ public class ChatBot2
 	};
 	private String [] randomAngryResponses = {"Bahumbug.", "Harumph", "The rage consumes me!"};
 	private String [] randomHappyResponses = {"H A P P Y, what's that spell?", "Today is a good day", "You make me feel like a brand new pair of shoes."};
-	
+
 }
+
