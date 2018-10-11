@@ -82,9 +82,9 @@ public class ChatBot1
 		}
 
 		// Response transforming I want to statement
-		else if (findKeyword(statement, "I want to", 0) >= 0)
+		else if (findKeyword(statement, "I sleep", 0) >= 0)
 		{
-			response = transformIWantToStatement(statement);
+			response = transformISleepStatement(statement);
 		}
 		else if (findKeyword(statement, "I want",0) >= 0)
 		{
@@ -104,7 +104,7 @@ public class ChatBot1
 	 * @param statement the user statement, assumed to contain "I want to"
 	 * @return the transformed statement
 	 */
-	private String transformIWantToStatement(String statement)
+	public String transformISleepStatement(String statement)
 	{
 		//  Remove the final period, if there is one
 		statement = statement.trim();
@@ -115,9 +115,9 @@ public class ChatBot1
 			statement = statement.substring(0, statement
 					.length() - 1);
 		}
-		int psn = findKeyword (statement, "I want to", 0);
-		String restOfStatement = statement.substring(psn + 9).trim();
-		return "Why do you want to " + restOfStatement + "?";
+		int psn = findKeyword (statement, "I sleep", 0);
+		String restOfStatement = statement.substring(psn + 8).trim();
+		return "Why do you only sleep " + restOfStatement + "?";
 	}
 
 	
