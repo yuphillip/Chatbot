@@ -12,6 +12,10 @@ public class ChatBot3
 {
 	//emotion can alter the way our bot responds. Emotion can become more negative or positive over time.
 	int emotion = 0;
+	//tracker makes sure that a response has to be correct to the context it's said in.
+	int track=0;
+	//error, if you gave the wrong answer before, the error counter goes up, and will give you a new response, if your answer is wrong again."
+	int error=0;
 
 
 
@@ -43,7 +47,7 @@ public class ChatBot3
 	 */	
 	public String getGreeting()
 	{
-		return "Hi, what is up?";
+		return "Hey, would you like to be less filthy? \n Answer 'yes I would prefer to be less filthy' , or 'no'";
 	}
 	
 	/**
@@ -82,7 +86,8 @@ public class ChatBot3
 		else if (findKeyword(statement, "I wash my hands for",0) >= 0)
 		{
 			response = transformIWashStatement(statement);
-		}	
+		}
+
 		else
 		{
 			response = getRandomResponse();
@@ -135,6 +140,22 @@ public class ChatBot3
 		String restOfStatement = statement.substring(psn + 19).trim();
 		return "What made you start to wash your hands for " + restOfStatement + "?";
 	}
+
+	/**private String transformIBathEvery(String statement)
+	{
+		//  Remove the final period, if there is one
+		statement = statement.trim();
+		String lastChar = statement.substring(statement
+				.length() - 1);
+		if (lastChar.equals("."))
+		{
+			statement = statement.substring(0, statement
+					.length() - 1);
+		}
+		int psn = findKeyword (statement, "I take a shower", 0);
+		String restOfStatement = statement.substring(psn + 19).trim();
+		return "What made you start to wash your hands for " + restOfStatement + "?";
+	*/
 
 
 	
