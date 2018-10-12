@@ -5,7 +5,7 @@ import java.util.Scanner;
  * @author Brooklyn Tech CS Department
  * @version September 2018
  */
-public class ChatBotRunner
+public class hiChatBotRunner
 {
 
 	/**

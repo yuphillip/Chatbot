@@ -1,5 +1,6 @@
 import java.util.Random;
 import java.util.Scanner;
+//Matthew Moore- Hygeine ChatBot**/
 
 /**
  * A program to carry on conversations with a human user.
