@@ -41,7 +41,7 @@ public class ChatBot1
 	 */	
 	public String getGreeting()
 	{
-		return "Hey! Do you want to be less tired?";
+		return "Hey! How many hours do you sleep ?";
 	}
 	
 	/**
@@ -76,7 +76,7 @@ public class ChatBot1
 			response = "Watch your backpacks, Mr. Folwell doesn't fall well.";
 			emotion++;
 		}
-		else if (findKeyword(statement, "goldman") >= 0)
+		else if (findKeyword(statement, "yes") >= 0)
 		{
 			response = "Go for the gold, man.";
 			emotion++;
@@ -87,9 +87,9 @@ public class ChatBot1
 		{
 			response = transformISleepStatement(statement);
 		}
-		else if (findKeyword(statement, "I want",0) >= 0)
+		else if (findKeyword(statement, "Before sleeping I",0) >= 0)
 		{
-			response = transformIWantStatement(statement);
+			response = transformBeforeSleepStatement(statement);
 		}	
 		else
 		{
@@ -128,7 +128,7 @@ public class ChatBot1
 	 * @param statement the user statement, assumed to contain "I want"
 	 * @return the transformed statement
 	 */
-	private String transformIWantStatement(String statement)
+	private String transformBeforeSleepStatement(String statement)
 	{
 		//  Remove the final period, if there is one
 		statement = statement.trim();
@@ -139,9 +139,12 @@ public class ChatBot1
 			statement = statement.substring(0, statement
 					.length() - 1);
 		}
-		int psn = findKeyword (statement, "I want", 0);
-		String restOfStatement = statement.substring(psn + 6).trim();
-		return "Would you really be happy if you had " + restOfStatement + "?";
+		int psn = findKeyword (statement, "Before sleeping I do ", 0);
+		String restOfStatement = statement.substring(psn + 16).trim();
+		if (findKeyword(restOfStatement, "phone", 0) >= 0) {
+			return getPhoneResponse();
+		}
+		return "Maybe you should cut sometime off of" + " " + restOfStatement + "?";
 	}
 	
 	
@@ -269,9 +272,19 @@ public class ChatBot1
 		}	
 		return randomHappyResponses [r.nextInt(randomHappyResponses.length)];
 	}
-	
-	private String [] randomNeutralResponses = {"Interesting, tell me more",
-			"Hmmm.",
+	private String getPhoneResponse()
+	{
+		Random r = new Random ();
+		return phoneResponses [r.nextInt(phoneResponses.length)];
+	}
+	private String [] phoneResponses = {
+			"Did you know it is generally recommended to not use electronics 30 minutes before you sleep?",
+			"Researchers have found that using electronics prior to sleep leads to sleep disturbances and low energy.",
+			""
+	};
+	private String [] randomNeutralResponses =
+			{"EY thats irrelevant!",
+			"",
 			"Do you really think so?",
 			"You don't say.",
 			"It's all boolean to me.",
