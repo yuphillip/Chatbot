@@ -41,7 +41,7 @@ public class ChatBot1
 	 */	
 	public String getGreeting()
 	{
-		return "Hi, what is up?";
+		return "Hey! Do you want to be less tired?";
 	}
 	
 	/**
