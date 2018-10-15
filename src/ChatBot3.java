@@ -43,11 +43,13 @@ public class ChatBot3
 	}
 	/**
 	 * Get a default greeting 	
+	 * Def and init track here. Init as 0.
 	 * @return a greeting
 	 */	
 	public String getGreeting()
 	{
-		return "Hey, would you like to be less filthy? \n Answer 'yes I would prefer to be less filthy' , or 'no'";
+		int track=0;
+		return "Hey, would you like to be less filthy? \n Answer yes or no";
 	}
 	
 	/**
@@ -66,7 +68,7 @@ public class ChatBot3
 			response = "Say something, please.";
 		}
 
-		else if (findKeyword(statement, "no") >= 0)
+		else if (track!=0 && findKeyword(statement, "no") >= 0)
 		{
 			response = "Why so negative?";
                 	emotion--;
@@ -82,6 +84,18 @@ public class ChatBot3
 		else if (findKeyword(statement, "I want too", 0) >= 0)
 		{
 			response = transformIWantToStatement(statement);
+		}
+		//First set of questions
+		else if (track==0 && findKeyword(statement,"yes")>=0)
+		{
+			response="Sweet dawg. \n Lemme start by asking: \n How long you wash your hands for?";
+			track++;
+		}
+		// If they say no.
+		else if (track==0 && findKeyword(statement,"no")>=0)
+		{
+			response="oh";
+			track++;
 		}
 		else if (findKeyword(statement, "I wash my hands for",0) >= 0)
 		{
