@@ -94,6 +94,10 @@ public class ChatBot2
 		{
 			response = transformBMIStatement(statement);
 		}
+		else if (findKeyword(statement,statement,0)>=0)
+		{
+			response = statement;
+		}
 		else
 		{
 			response = getRandomResponse();
@@ -101,8 +105,6 @@ public class ChatBot2
 
 		return response;
 	}
-
-
 
 	/**
 	 * Take a statement with "I want to <something>." and transform it into
@@ -147,8 +149,14 @@ public class ChatBot2
 		return "Cool! I like to play " + restOfStatement + " too! Would you like to find out what your BMI is? Ask 'What is my BMI?' to find out!";
 	}
 
+	/**
+	 * Gets user's height and weights and returns BMI.
+	 * @param statement
+	 * @return
+	 */
 	private String transformBMIStatement(String statement)
 	{
+		System.out.println("Let's find your BMI!");
 		Scanner bmiscan = new Scanner (System.in);
 		System.out.println("What is your weight in kg?");
 		double weight = bmiscan.nextDouble();
