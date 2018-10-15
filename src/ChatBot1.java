@@ -65,23 +65,10 @@ public class ChatBot1
 			response = "Why so negative?";
                 	emotion--;
 		}
-		
-		else if (findKeyword(statement, "levin") >= 0)
-		{
-			response = "More like LevinTheDream, amiright?";
-			emotion++;
-		}
-		else if (findKeyword(statement, "folwell") >= 0)
-		{
-			response = "Watch your backpacks, Mr. Folwell doesn't fall well.";
-			emotion++;
-		}
 		else if (findKeyword(statement, "yes") >= 0)
 		{
-			response = "Go for the gold, man.";
-			emotion++;
+			response = "Great! Are you dreams wet or scary?";
 		}
-
 		// Response transforming I want to statement
 		else if (findKeyword(statement, "I sleep", 0) >= 0)
 		{
@@ -90,7 +77,7 @@ public class ChatBot1
 		else if (findKeyword(statement, "Before sleeping I",0) >= 0)
 		{
 			response = transformBeforeSleepStatement(statement);
-		}	
+		}
 		else
 		{
 			response = getRandomResponse();
