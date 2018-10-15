@@ -37,27 +37,18 @@ public class ChatBot2
 
 	}
 
-	public double getBMI(double weight, double height, String statement)
-	{
-		System.out.println("What is your weight in kg?");
-		weight = Double.parseDouble(statement);
-		System.out.println("What is your height in meters?");
-		height = Double.parseDouble(statement);
-		double bmi = weight / (height * height);
-		return bmi;
-	}
 	/**
-	 * Get a default greeting 	
+	 * Get a default greeting
 	 * @return a greeting
-	 */	
+	 */
 	public String getGreeting()
 	{
-		return "Hi, what is up!	";
+		return "Let's talk about exercise! What's your favorite sport?";
 	}
-	
+
 	/**
 	 * Gives a response to a user statement
-	 * 
+	 *
 	 * @param statement
 	 *            the user statement
 	 * @return a response based on the rules given
@@ -65,7 +56,7 @@ public class ChatBot2
 	public String getResponse(String statement)
 	{
 		String response = "";
-		
+
 		if (statement.length() == 0)
 		{
 			response = "Say something, please.";
@@ -74,15 +65,14 @@ public class ChatBot2
 		else if (findKeyword(statement, "no") >= 0)
 		{
 			response = "Why so negative?";
-                	emotion--;
+			emotion--;
 		}
-		
+
 		else if (findKeyword(statement, "levin") >= 0)
 		{
 			response = "More like LevinTheDream amiright?";
 			emotion++;
 		}
-
 		// Response transforming I want to statement
 		else if (findKeyword(statement, "I want to play", 0) >= 0)
 		{
@@ -91,15 +81,29 @@ public class ChatBot2
 		else if (findKeyword(statement, "I want",0) >= 0)
 		{
 			response = transformIWantStatement(statement);
-		}	
+		}
+		else if (findKeyword(statement,"My favorite sport is",0) >= 0)
+		{
+			response = transformSportsStatement(statement);
+		}
+		else if (findKeyword(statement,"you",0) >= 0)
+		{
+			response = transformIYouStatement(statement);
+		}
+		else if (findKeyword(statement,"What is my BMI?",0) >= 0)
+		{
+			response = transformBMIStatement(statement);
+		}
 		else
 		{
 			response = getRandomResponse();
 		}
-		
+
 		return response;
 	}
-	
+
+
+
 	/**
 	 * Take a statement with "I want to <something>." and transform it into
 	 * "Why do you want to <something>?"
@@ -117,14 +121,47 @@ public class ChatBot2
 			statement = statement.substring(0, statement
 					.length() - 1);
 		}
-		int psn = findKeyword (statement, "I want to play", 0);
-		String restOfStatement = statement.substring(psn + 14).trim();
-		return "Why do you want to play " + restOfStatement + "?";
+		int psn = findKeyword (statement, "I want to", 0);
+		String restOfStatement = statement.substring(psn + 9).trim();
+		return "Why do you want to " + restOfStatement + "?";
 	}
 
-	
 	/**
-	 * Take a statement with "I want <something>." and transform it into 
+	 * Transform favorite sport and gives a response.
+	 * @param statement
+	 * @return
+	 */
+	private String transformSportsStatement(String statement)
+	{
+		//  Remove the final period, if there is one
+		statement = statement.trim();
+		String lastChar = statement.substring(statement
+				.length() - 1);
+		if (lastChar.equals("."))
+		{
+			statement = statement.substring(0, statement
+					.length() - 1);
+		}
+		int psn = findKeyword (statement, "My favorite sport is", 0);
+		String restOfStatement = statement.substring(psn + 21).trim();
+		return "Cool! I like to play " + restOfStatement + " too! Would you like to find out what your BMI is? Ask 'What is my BMI?' to find out!";
+	}
+
+	private String transformBMIStatement(String statement)
+	{
+		Scanner bmiscan = new Scanner (System.in);
+		System.out.println("What is your weight in kg?");
+		double weight = bmiscan.nextDouble();
+		System.out.println("What is your height in meters?");
+		double height = bmiscan.nextDouble();
+		double bmi = weight / (height * height);
+		String bmistr = Double.toString(bmi);
+		return "Your BMI is: " + bmistr + ".";
+	}
+
+
+	/**
+	 * Take a statement with "I want <something>." and transform it into
 	 * "Would you really be happy if you had <something>?"
 	 * @param statement the user statement, assumed to contain "I want"
 	 * @return the transformed statement
@@ -144,10 +181,10 @@ public class ChatBot2
 		String restOfStatement = statement.substring(psn + 6).trim();
 		return "Would you really be happy if you had " + restOfStatement + "?";
 	}
-	
-	
+
+
 	/**
-	 * Take a statement with "I <something> you" and transform it into 
+	 * Take a statement with "I <something> you" and transform it into
 	 * "Why do you <something> me?"
 	 * @param statement the user statement, assumed to contain "I" followed by "you"
 	 * @return the transformed statement
@@ -163,17 +200,14 @@ public class ChatBot2
 			statement = statement.substring(0, statement
 					.length() - 1);
 		}
-		
+
 		int psnOfI = findKeyword (statement, "I", 0);
 		int psnOfYou = findKeyword (statement, "you", psnOfI);
-		
+
 		String restOfStatement = statement.substring(psnOfI + 1, psnOfYou).trim();
 		return "Why do you " + restOfStatement + " me?";
 	}
-	
 
-	
-	
 	/**
 	 * Search for one word in phrase. The search is not case
 	 * sensitive. This method will check that the given goal
@@ -191,7 +225,7 @@ public class ChatBot2
 	 *         statement or -1 if it's not found
 	 */
 	private int findKeyword(String statement, String goal,
-			int startPos)
+							int startPos)
 	{
 		String phrase = statement.trim().toLowerCase();
 		goal = goal.toLowerCase();
@@ -222,9 +256,9 @@ public class ChatBot2
 			// found the word
 			if (((before.compareTo("a") < 0) || (before
 					.compareTo("z") > 0)) // before is not a
-											// letter
+					// letter
 					&& ((after.compareTo("a") < 0) || (after
-							.compareTo("z") > 0)))
+					.compareTo("z") > 0)))
 			{
 				return psn;
 			}
@@ -237,7 +271,7 @@ public class ChatBot2
 
 		return -1;
 	}
-	
+
 	/**
 	 * Search for one word in phrase.  The search is not case sensitive.
 	 * This method will check that the given goal is not a substring of a longer string
@@ -250,7 +284,7 @@ public class ChatBot2
 	{
 		return findKeyword (statement, goal, 0);
 	}
-	
+
 
 
 	/**
@@ -261,16 +295,16 @@ public class ChatBot2
 	{
 		Random r = new Random ();
 		if (emotion == 0)
-		{	
+		{
 			return randomNeutralResponses [r.nextInt(randomNeutralResponses.length)];
 		}
 		if (emotion < 0)
-		{	
+		{
 			return randomAngryResponses [r.nextInt(randomAngryResponses.length)];
-		}	
+		}
 		return randomHappyResponses [r.nextInt(randomHappyResponses.length)];
 	}
-	
+
 	private String [] randomNeutralResponses = {"Interesting, tell me more",
 			"Hmmm.",
 			"Do you really think so?",
@@ -283,4 +317,5 @@ public class ChatBot2
 	private String [] randomHappyResponses = {"H A P P Y, what's that spell?", "Today is a good day", "You make me feel like a brand new pair of shoes."};
 
 }
+
 
