@@ -67,10 +67,14 @@ public class ChatBot1
 		}
 		else if (findKeyword(statement, "yes") >= 0)
 		{
-			response = "Great! Are you dreams wet or scary?";
+			response = "Great!";
 		}
 		// Response transforming I want to statement
 		else if (findKeyword(statement, "I sleep", 0) >= 0)
+		{
+			response = transformISleepStatement(statement);
+		}
+		else if (findKeyword(statement, "hours", 0) >= 0)
 		{
 			response = transformISleepStatement(statement);
 		}
@@ -96,6 +100,7 @@ public class ChatBot1
 	{
 		//  Remove the final period, if there is one
 		statement = statement.trim();
+		String restOfStatement = "";
 		String lastChar = statement.substring(statement
 				.length() - 1);
 		if (lastChar.equals("."))
@@ -103,9 +108,16 @@ public class ChatBot1
 			statement = statement.substring(0, statement
 					.length() - 1);
 		}
-		int psn = findKeyword (statement, "I sleep", 0);
-		String restOfStatement = statement.substring(psn + 8).trim();
-		return "Why do you only sleep " + restOfStatement + "?";
+		int psn1 = findKeyword (statement, "I sleep", 0);
+		int psn = findKeyword (statement,"hours", 0);
+		if(statement.length() < 8)
+		{
+			restOfStatement = statement.substring(psn - 2).trim();
+		}
+		else {
+			restOfStatement = statement.substring(psn1 + 8).trim();
+		}
+		return "What do you do before sleeping that you only sleep" + " " + restOfStatement + "?";
 	}
 
 	
@@ -126,12 +138,12 @@ public class ChatBot1
 			statement = statement.substring(0, statement
 					.length() - 1);
 		}
-		int psn = findKeyword (statement, "Before sleeping I do ", 0);
-		String restOfStatement = statement.substring(psn + 16).trim();
+		int psn = findKeyword (statement, "Before sleeping I do", 0);
+		String restOfStatement = statement.substring(psn + 18).trim();
 		if (findKeyword(restOfStatement, "phone", 0) >= 0) {
 			return getPhoneResponse();
 		}
-		return "Maybe you should cut sometime off of" + " " + restOfStatement + "?";
+		return "Do you think you could spend less time on" + " " + restOfStatement + "?";
 	}
 	
 	
