@@ -69,11 +69,7 @@ public class ChatBot3
 			response = "Say something, please.";
 		}
 
-		else if (track!=0 && findKeyword(statement, "no") >= 0)
-		{
-			response = "Why so negative?";
-                	emotion--;
-		}
+
 		
 		else if (findKeyword(statement, "levin") >= 0)
 		{
@@ -82,10 +78,7 @@ public class ChatBot3
 		}
 
 		// Response transforming I want to statement
-		else if (findKeyword(statement, "I want too", 0) >= 0)
-		{
-			response = transformIWantToStatement(statement);
-		}
+
 		//First set of questions
 		else if (track==0 && findKeyword(statement,"yes")>=0)
 		{
@@ -102,6 +95,7 @@ public class ChatBot3
 		{
 			response= transformIWashStatement(statement);
 			track++;
+			error=0;
 
 		}
 		else if (track==1 && findKeyword(statement, "I wash my hands for", 0)==-1)
@@ -129,7 +123,10 @@ public class ChatBot3
 			}
 			error++;
 		}
+		else if (track==2 && findKeyword(statement, "I started because",0)>=0)
+		{
 
+		}
 
 		else
 		{
@@ -181,7 +178,28 @@ public class ChatBot3
 		}
 		int psn = findKeyword (statement, "I wash my hands for", 0);
 		String restOfStatement = statement.substring(psn + 19).trim();
-		return "What made you start to wash your hands for " + restOfStatement + "?";
+		return "What makes you wash your hands for " + restOfStatement + "?";
+	}
+
+	/** Takes the persons explanation for why, and gives them a response. Snide remark about what was said, Then asks how
+	 * frequently you does it. Change this shit
+	 * @param statement
+	 * @return
+	 */
+	private String transformIDidItCuzStatement(String statement)
+	{
+		//  Remove the final period, if there is one
+		statement = statement.trim();
+		String lastChar = statement.substring(statement
+				.length() - 1);
+		if (lastChar.equals("."))
+		{
+			statement = statement.substring(0, statement
+					.length() - 1);
+		}
+		int psn = findKeyword (statement, "I started this way because I", 0);
+		String restOfStatement = statement.substring(psn + 19).trim();
+		return "What makes you wash your hands for " + restOfStatement + "?";
 	}
 
 	/**private String transformIBathEvery(String statement)
@@ -338,5 +356,6 @@ public class ChatBot3
 	private String [] randomAngryResponses = {"Bahumbug.", "Harumph", "The rage consumes me!"};
 	private String [] randomHappyResponses = {"H A P P Y, what's that spell?", "Today is a good day", "You make me feel like a brand new pair of shoes."};
 	private String [] errorList={"(-_-) ","('.') ", "(-(-_(-_-)_-)-) ", "ヽ(`Д´)ﾉ ", "(＃ﾟДﾟ) " };
+	private String [] sassList=["(¬_¬) Ok..."," (☉_☉) ARE YOU SOME SORT OF MANIAC!?!?!", "( ◞･౪･) cool dude..." ]
 	
 }
