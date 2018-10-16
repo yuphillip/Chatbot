@@ -82,6 +82,9 @@ public class ChatBot1
 		{
 			response = transformBeforeSleepStatement(statement);
 		}
+		else if (findKeyword(statement, "phone", 0) >= 0) {
+			return (getPhoneResponse() + "\n" + getRandomResponse());
+		}
 		else
 		{
 			response = getRandomResponse();
@@ -140,10 +143,7 @@ public class ChatBot1
 		}
 		int psn = findKeyword (statement, "Before sleeping I do", 0);
 		String restOfStatement = statement.substring(psn + 18).trim();
-		if (findKeyword(restOfStatement, "phone", 0) >= 0) {
-			return getPhoneResponse();
-		}
-		return "Do you think you could spend less time on" + " " + restOfStatement + "?";
+		return "Do you think you could" + " " + restOfStatement + "?";
 	}
 	
 	
@@ -266,9 +266,9 @@ public class ChatBot1
 			return randomNeutralResponses [r.nextInt(randomNeutralResponses.length)];
 		}
 		if (emotion < 0)
-		{	
+		{
 			return randomAngryResponses [r.nextInt(randomAngryResponses.length)];
-		}	
+		}
 		return randomHappyResponses [r.nextInt(randomHappyResponses.length)];
 	}
 	private String getPhoneResponse()
