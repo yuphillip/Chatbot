@@ -1,3 +1,6 @@
+import jdk.internal.util.xml.impl.Input;
+
+import java.util.InputMismatchException;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -94,10 +97,6 @@ public class ChatBot2
 		{
 			response = transformBMIStatement(statement);
 		}
-		else if (findKeyword(statement,statement,0)>=0)
-		{
-			response = statement;
-		}
 		else
 		{
 			response = getRandomResponse();
@@ -105,6 +104,8 @@ public class ChatBot2
 
 		return response;
 	}
+
+
 
 	/**
 	 * Take a statement with "I want to <something>." and transform it into
@@ -158,12 +159,38 @@ public class ChatBot2
 	{
 		System.out.println("Let's find your BMI!");
 		Scanner bmiscan = new Scanner (System.in);
-		System.out.println("What is your weight in kg?");
-		double weight = bmiscan.nextDouble();
-		System.out.println("What is your height in meters?");
-		double height = bmiscan.nextDouble();
-		double bmi = weight / (height * height);
-		String bmistr = Double.toString(bmi);
+		double weight= 0;
+		double height = 0;
+		double bmi;
+		String bmistr = "";
+		boolean condition = false;
+		while(!condition) {
+			System.out.println("What is your weight in kg?");
+			boolean condition2 = false;
+			while (!condition2) {
+				try {
+					weight = Double.parseDouble(bmiscan.nextLine());
+					condition2 = true;
+				} catch (NumberFormatException e) {
+					System.out.println("Try inputting a number!");
+					System.out.println("What is your weight in kg?");
+				}
+			}
+			System.out.println("What is your height in meters?");
+			boolean condition3 = false;
+			while (!condition3) {
+				try {
+					height = Double.parseDouble(bmiscan.nextLine());
+					condition3 = true;
+				} catch (NumberFormatException e) {
+					System.out.println("Try inputting a number!");
+					System.out.println("What is your height in meters?");
+				}
+			}
+			bmi = weight / (height * height);
+			bmistr = Double.toString(bmi);
+		condition = true;
+		}
 		return "Your BMI is: " + bmistr + ".";
 	}
 
