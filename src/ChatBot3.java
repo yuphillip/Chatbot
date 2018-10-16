@@ -49,6 +49,7 @@ public class ChatBot3
 	public String getGreeting()
 	{
 		int track=0;
+		int error=0;
 		return "Hey, would you like to be less filthy? \n Answer yes or no";
 	}
 	
@@ -97,10 +98,38 @@ public class ChatBot3
 			response="oh";
 			track++;
 		}
-		else if (findKeyword(statement, "I wash my hands for",0) >= 0)
+		else if (track==1 && findKeyword(statement, "I wash my hands for", 0)>=0)
 		{
-			response = transformIWashStatement(statement);
+			response= transformIWashStatement(statement);
+			track++;
+
 		}
+		else if (track==1 && findKeyword(statement, "I wash my hands for", 0)==-1)
+		{
+
+			if (error==0)
+			{
+				response= "I'm sorry dude, I forgot to tell you: \n You have to type your answer as 'I wash my hands for...'";
+
+			}
+			if (error==1)
+			{
+				response= "Either my human error is showing, or your faulty programming is XD \n Remember, type your answer as 'I wash my hands for...' ";
+
+			}
+			if (error>1)
+			{
+				for (int i=0; i<=error; i++)
+				{
+					String stor= errorList[(int)(Math.random()*(5-0))];
+					response+=stor;
+				}
+				response+="\n";
+				response+="I wash my hands for";
+			}
+			error++;
+		}
+
 
 		else
 		{
@@ -308,5 +337,6 @@ public class ChatBot3
 	};
 	private String [] randomAngryResponses = {"Bahumbug.", "Harumph", "The rage consumes me!"};
 	private String [] randomHappyResponses = {"H A P P Y, what's that spell?", "Today is a good day", "You make me feel like a brand new pair of shoes."};
+	private String [] errorList={"(-_-) ","('.') ", "(-(-_(-_-)_-)-) ", "ヽ(`Д´)ﾉ ", "(＃ﾟДﾟ) " };
 	
 }
