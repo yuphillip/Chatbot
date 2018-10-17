@@ -63,11 +63,10 @@ public class ChatBot1
 		else if (findKeyword(statement, "no") >= 0)
 		{
 			response = "Why so negative?";
-                	emotion--;
 		}
 		else if (findKeyword(statement, "yes") >= 0)
 		{
-			response = "Great!";
+			response = "Great! Is there any other activity you could cut time off of?";
 		}
 		// Response transforming I want to statement
 		else if (findKeyword(statement, "I sleep", 0) >= 0)
@@ -81,6 +80,10 @@ public class ChatBot1
 		else if (findKeyword(statement, "Before sleeping I",0) >= 0)
 		{
 			response = transformBeforeSleepStatement(statement);
+		}
+		else if (findKeyword(statement, "tonight",0) >= 0)
+		{
+			response = transformTonight(statement);
 		}
 		else if (findKeyword(statement, "phone", 0) >= 0) {
 			return (getPhoneResponse() + "\n" + getRandomResponse());
@@ -142,8 +145,8 @@ public class ChatBot1
 					.length() - 1);
 		}
 		int psn = findKeyword (statement, "Before sleeping I do", 0);
-		String restOfStatement = statement.substring(psn + 18).trim();
-		return "Do you think you could" + " " + restOfStatement + "?";
+		String restOfStatement = statement.substring(psn + 20).trim();
+		return "Do you think you could spend less time on" + " " + restOfStatement + "?";
 	}
 	
 	
@@ -153,7 +156,7 @@ public class ChatBot1
 	 * @param statement the user statement, assumed to contain "I" followed by "you"
 	 * @return the transformed statement
 	 */
-	private String transformIYouStatement(String statement)
+	private String transformTonight(String statement)
 	{
 		//  Remove the final period, if there is one
 		statement = statement.trim();
@@ -164,15 +167,10 @@ public class ChatBot1
 			statement = statement.substring(0, statement
 					.length() - 1);
 		}
-		
-		int psnOfI = findKeyword (statement, "I", 0);
-		int psnOfYou = findKeyword (statement, "you", psnOfI);
-		
-		String restOfStatement = statement.substring(psnOfI + 1, psnOfYou).trim();
+		int psnOfI = findKeyword (statement, "tonight", 0);
+		String restOfStatement = statement.substring(psnOfI + 1).trim();
 		return "Why do you " + restOfStatement + " me?";
 	}
-	
-
 	
 	
 	/**
@@ -258,19 +256,12 @@ public class ChatBot1
 	 * Pick a default response to use if nothing else fits.
 	 * @return a non-committal string
 	 */
-	private String getRandomResponse ()
-	{
-		Random r = new Random ();
-		if (emotion == 0)
-		{	
-			return randomNeutralResponses [r.nextInt(randomNeutralResponses.length)];
-		}
-		if (emotion < 0)
-		{
-			return randomAngryResponses [r.nextInt(randomAngryResponses.length)];
-		}
-		return randomHappyResponses [r.nextInt(randomHappyResponses.length)];
+	private String getRandomResponse () {
+		Random r = new Random();
+		return randomNeutralResponses[r.nextInt(randomNeutralResponses.length)];
 	}
+
+
 	private String getPhoneResponse()
 	{
 		Random r = new Random ();
@@ -279,18 +270,15 @@ public class ChatBot1
 	private String [] phoneResponses = {
 			"Did you know it is generally recommended to not use electronics 30 minutes before you sleep?",
 			"Researchers have found that using electronics prior to sleep leads to sleep disturbances and low energy.",
-			""
+			"Smartphones and tablets disrupt sleep, in part, because they emit what's known as 'blue' light.",
+			"Screen time at night keeps adults from falling asleep and sleeping well due to cognitive stimulation and sleep deprivation."
 	};
 	private String [] randomNeutralResponses =
-			{"EY thats irrelevant!",
-			"",
-			"Do you really think so?",
-			"You don't say.",
-			"It's all boolean to me.",
-			"So, would you like to go for a walk?",
-			"Could you say that again?"
+			{"Why though?",
+			"I do too! What else do you do ?",
+			"Sleep is vital to having a healthy lifestyle, Do you think you're healthy?",
+			"I feel that sleeping more could always help!",
+			"Spending less time online is always a good start!"
 	};
-	private String [] randomAngryResponses = {"Bahumbug.", "Harumph", "The rage consumes me!"};
-	private String [] randomHappyResponses = {"H A P P Y, what's that spell?", "Today is a good day", "You make me feel like a brand new pair of shoes."};
 	
 }
