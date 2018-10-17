@@ -1,6 +1,6 @@
 import java.util.Random;
 import java.util.Scanner;
-//Matthew Moore- Hygeine ChatBot**/
+//Matthew Moore- Hygiene ChatBot**/
 
 /**
  * A program to carry on conversations with a human user.
@@ -82,7 +82,7 @@ public class ChatBot3
 		//First set of questions
 		else if (track==0 && findKeyword(statement,"yes")>=0)
 		{
-			response="Sweet dawg. \n Lemme start by asking: \n How long you wash your hands for?";
+			response="Sweet dawg. \n Lemme start by asking: \n How long do you wash your hands for?";
 			track++;
 		}
 		// If they say no.
@@ -125,8 +125,29 @@ public class ChatBot3
 		}
 		else if (track==2 && findKeyword(statement, "I started because",0)>=0)
 		{
+			response= transformIStarted(statement);
+			track++;
+			error=0;
+		}
+		else if (track==2 && findKeyword(statement, "I started because",0)==-1)
+		{
+			if (error==0)
+			{
+				response= "I know it's a bit much to type, but I'll need you to type your answer as \n 'I started because'";
+			}
+			if (error>0)
+			{
+				for (int i=0; i<=error; i++)
+				{
+					String stor= errorList[(int)(Math.random()*(5-0))];
+					response+=stor;
+				}
+				response+="\n";
+				response+="I Started to wash my hands for...";
+			}
 
 		}
+
 
 		else
 		{
@@ -178,7 +199,7 @@ public class ChatBot3
 		}
 		int psn = findKeyword (statement, "I wash my hands for", 0);
 		String restOfStatement = statement.substring(psn + 19).trim();
-		return "What makes you wash your hands for " + restOfStatement + "?";
+		return "What made you start to wash to wash your hands for " + restOfStatement + "?";
 	}
 
 	/** Takes the persons explanation for why, and gives them a response. Snide remark about what was said, Then asks how
@@ -186,9 +207,9 @@ public class ChatBot3
 	 * @param statement
 	 * @return
 	 */
-	private String transformIDidItCuzStatement(String statement)
+	private String transformIStarted(String statement)
 	{
-		//  Remove the final period, if there is one
+		// Tkaes in astatemen, checks if it was done correctly. Handles erroe where somebody might type I or my
 		statement = statement.trim();
 		String lastChar = statement.substring(statement
 				.length() - 1);
@@ -197,9 +218,22 @@ public class ChatBot3
 			statement = statement.substring(0, statement
 					.length() - 1);
 		}
-		int psn = findKeyword (statement, "I started this way because I", 0);
-		String restOfStatement = statement.substring(psn + 19).trim();
-		return "What makes you wash your hands for " + restOfStatement + "?";
+		if (findKeyword(statement,"I started because my")>=0)
+		{
+			int psn = findKeyword (statement, "I started because my", 0);
+			String restOfStatement = statement.substring(psn + 20).trim();
+			return sassList[(int)(Math.random()*(3-0))] + "\n So you started this way because your " +restOfStatement + "? \n Despite how you might've read my response to that, "+ jokeList[(int)(Math.random()*(3-0))] + " \n I would advise you to wash your hands for"+ ((int)(Math.random()*(1000-1))) +" seconds.";
+		}
+		if (findKeyword(statement,"I started because I")>=0)
+		{
+			int psn = findKeyword (statement, "I started because I", 0);
+			String restOfStatement = statement.substring(psn + 19).trim();
+			return sassList[(int)(Math.random()*(3-0))] + "\n So you started because you " +restOfStatement + "? \n Despite how you might've read my response to that, "+ jokeList[(int)(Math.random()*(3-0))] + " \n I would advise you to wash your hands for"+ ((int)(Math.random()*(1000-1))) +" seconds.";
+		}
+		int psn = findKeyword (statement, "I started because", 0);
+		String restOfStatement = statement.substring(psn + 17).trim();
+		return sassList[(int)(Math.random()*(3-0))] + "\n So you started because " + restOfStatement + "? \n Despite how you might've read my response to that, "+ jokeList[(int)(Math.random()*(3-0))] + " \n I would advise you to wash your hands for"+ ((int)(Math.random()*(1000-1))) +" seconds.";
+
 	}
 
 	/**private String transformIBathEvery(String statement)
@@ -356,6 +390,9 @@ public class ChatBot3
 	private String [] randomAngryResponses = {"Bahumbug.", "Harumph", "The rage consumes me!"};
 	private String [] randomHappyResponses = {"H A P P Y, what's that spell?", "Today is a good day", "You make me feel like a brand new pair of shoes."};
 	private String [] errorList={"(-_-) ","('.') ", "(-(-_(-_-)_-)-) ", "ヽ(`Д´)ﾉ ", "(＃ﾟДﾟ) " };
-	private String [] sassList={"(¬_¬) Ok..."," (☉_☉) ARE YOU SOME SORT OF MANIAC!?!?!", "( ◞･౪･) cool dude..." };
+	private String [] sassList={"(¬_¬) Ok..."," (☉_☉) ARE YOU SOME SORT OF MANIAC!?!?!", "( ◞･౪･) Cool dude" };
+	private String[] jokeList={"almost 3% percent of cave people have that exact same reason.", "I have heard this reason several thousand times.", "Sleep bot and Exercise bot" +
+			"would have been even bigger jerks","it's is nothing to be ashamed of."};
+
 	
 }
