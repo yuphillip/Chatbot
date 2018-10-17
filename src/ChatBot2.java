@@ -31,7 +31,6 @@ public class ChatBot2
 		while (!statement.equals("Bye"))
 		{
 
-
 			statement = in.nextLine();
 			//getResponse handles the user reply
 			System.out.println(getResponse(statement));
@@ -41,12 +40,56 @@ public class ChatBot2
 	}
 
 	/**
-	 * Get a default greeting
+	 * Greets the user and asks for their BMI.
 	 * @return a greeting
 	 */
 	public String getGreeting()
 	{
-		return "Let's talk about exercise! What's your favorite sport?";
+		String bmiresponse = "";
+		System.out.println("Would you like to find out your bmi?");
+		Scanner response = new Scanner (System.in);
+		String responseStr = response.nextLine();
+		if(responseStr.contains("yes") || responseStr.contains("sure") || responseStr.contains("ok") || responseStr.contains("cool"))
+		{
+			bmiresponse = transformBMIStatement(responseStr);
+		}
+		else if(responseStr.contains("no") || responseStr.contains("no thank you") || responseStr.contains("non"))
+		{
+			System.out.println("Cmon, you know you want to, be honest!");
+			bmiresponse = transformBMIStatement(responseStr);
+		}
+		else
+		{
+			System.out.println("I don't know what you just said, but it seems like you wanna know your BMI!");
+			bmiresponse = transformBMIStatement(responseStr);
+		}
+		return bmiresponse;
+
+	}
+
+	public String askIfBMIIsAverage()
+	{
+		String questionanswer = "";
+		System.out.println("Are you a kid, adolescent, or an adult?");
+		Scanner questionresponse = new Scanner(System.in);
+		String questionStr = questionresponse.nextLine();
+		if(questionStr.contains("kid") || questionStr.contains("child") || questionStr.contains("children)"))
+		{
+			if(bmiresponse)
+		}
+		else if(questionStr.contains("adolescent") || questionStr.contains("teen"))
+		{
+
+		}
+		else if(questionStr.contains("adult") || questionStr.contains("grown up"))
+		{
+
+		}
+		else
+		{
+			System.out.println("Tell me more about you!");
+		}
+
 	}
 
 	/**
@@ -224,24 +267,24 @@ public class ChatBot2
 	 * @param statement the user statement, assumed to contain "I" followed by "you"
 	 * @return the transformed statement
 	 */
-	private String transformIYouStatement(String statement)
-	{
-		//  Remove the final period, if there is one
-		statement = statement.trim();
-		String lastChar = statement.substring(statement
-				.length() - 1);
-		if (lastChar.equals("."))
-		{
-			statement = statement.substring(0, statement
-					.length() - 1);
-		}
-
-		int psnOfI = findKeyword (statement, "I", 0);
-		int psnOfYou = findKeyword (statement, "you", psnOfI);
-
-		String restOfStatement = statement.substring(psnOfI + 1, psnOfYou).trim();
-		return "Why do you " + restOfStatement + " me?";
-	}
+	//private String transformIYouStatement(String statement)
+	//{
+	//	//  Remove the final period, if there is one
+	//	statement = statement.trim();
+	//	String lastChar = statement.substring(statement
+	//			.length() - 1);
+	//	if (lastChar.equals("."))
+	//	{
+	//		statement = statement.substring(0, statement
+	//				.length() - 1);
+	//	}
+	//
+	//		int psnOfI = findKeyword (statement, "I", 0);
+	//		int psnOfYou = findKeyword (statement, "you", psnOfI);
+	//
+	//		String restOfStatement = statement.substring(psnOfI + 1, psnOfYou).trim();
+	//		return "Why do you " + restOfStatement + " me?";
+	//	}
 
 	/**
 	 * Search for one word in phrase. The search is not case
@@ -346,9 +389,10 @@ public class ChatBot2
 			"You don't say.",
 			"It's all boolean to me.",
 			"So, would you like to go for a walk?",
-			"Could you say that again?"
+			"Could you say that again?",
+			"Use a full sentence!"
 	};
-	private String [] randomAngryResponses = {"Bahumbug.", "Harumph", "The rage consumes me!"};
+	private String [] randomAngryResponses = {"Bahumbug.", "Harumph", "The rage consumes me!", "Speak a proper sentence!", "I don't have all day to talk to you!"};
 	private String [] randomHappyResponses = {"H A P P Y, what's that spell?", "Today is a good day", "You make me feel like a brand new pair of shoes."};
 
 }
