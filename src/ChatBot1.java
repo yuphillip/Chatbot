@@ -116,7 +116,7 @@ public class ChatBot1
 		}
 		int psn1 = findKeyword (statement, "I sleep", 0);
 		int psn = findKeyword (statement,"hours", 0);
-		String SleepTime = statement.substring(psn-1,psn);
+		String SleepTime = statement.substring(psn-2,psn);
 		int Sleep = Integer.parseInt(SleepTime);
 		if(statement.length() < 8)
 		{
@@ -125,8 +125,7 @@ public class ChatBot1
 		else {
 			restOfStatement = statement.substring(psn1 + 8).trim();
 		}
-	 	System.out.println(SleepTime);
-		return "What do you do before sleeping that you only sleep" + " " + restOfStatement + "?";
+		return SleepHoursResponse(Sleep) + "\n" + "What do you do before sleeping that you only sleep" + " " + restOfStatement + "?";
 	}
 	public String SleepHoursResponse(int Sleep)
 	{
