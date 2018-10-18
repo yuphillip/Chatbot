@@ -1,5 +1,6 @@
 import java.util.Random;
 import java.util.Scanner;
+
 //Matthew Moore- Hygiene ChatBot**/
 
 /**
@@ -88,8 +89,11 @@ public class ChatBot3
 		// If they say no.
 		else if (track==0 && findKeyword(statement,"no")>=0)
 		{
-			response="oh";
+			response="oh \n Well then let me redirect you to my good buddy Chatbot sleep, \n type in sleep";
 			track++;
+			statement="Bye";
+
+
 		}
 		else if (track==1 && findKeyword(statement, "I wash my hands for", 0)>=0)
 		{
@@ -137,6 +141,7 @@ public class ChatBot3
 			}
 			if (error>0)
 			{
+				response="";
 				for (int i=0; i<=error; i++)
 				{
 					String stor= errorList[(int)(Math.random()*(5-0))];
@@ -222,20 +227,31 @@ public class ChatBot3
 		{
 			int psn = findKeyword (statement, "I started because my", 0);
 			String restOfStatement = statement.substring(psn + 20).trim();
-			return sassList[(int)(Math.random()*(3-0))] + "\n So you started this way because your " +restOfStatement + "? \n Despite how you might've read my response to that, "+ jokeList[(int)(Math.random()*(3-0))] + " \n I would advise you to wash your hands for "+ ((int)(Math.random()*(1000-1))) +" seconds.";
+			return sassList[(int)(Math.random()*(3-0))] + "\n So you started this way because your " +restOfStatement + "? \n Despite how you might've read my response to that, "+ jokeList[(int)(Math.random()*(3-0))] + " \n I would advise you to wash your hands for "+ ((int)(Math.random()*(1000-1)));
 		}
 		if (findKeyword(statement,"I started because I")>=0)
 		{
 			int psn = findKeyword (statement, "I started because I", 0);
 			String restOfStatement = statement.substring(psn + 19).trim();
-			return sassList[(int)(Math.random()*(3-0))] + "\n So you started because you " +restOfStatement + "? \n Despite how you might've read my response to that, "+ jokeList[(int)(Math.random()*(3-0))] + " \n I would advise you to wash your hands for "+ ((int)(Math.random()*(1000-1))) +" seconds.";
+			return sassList[(int)(Math.random()*(3-0))] + "\n So you started because you " +restOfStatement + "? \n Despite how you might've read my response to that, "+ jokeList[(int)(Math.random()*(3-0))] + " \n I would advise you to wash your hands for "+ ((int)(Math.random()*(1000-1))) ;
 		}
 		int psn = findKeyword (statement, "I started because", 0);
 		String restOfStatement = statement.substring(psn + 17).trim();
-		return sassList[(int)(Math.random()*(3-0))] + "\n So you started because " + restOfStatement + "? \n Despite how you might've read my response to that, "+ jokeList[(int)(Math.random()*(3-0))] + " \n I would advise you to wash your hands for "+ ((int)(Math.random()*(1000-1))) +" seconds.";
+		return sassList[(int)(Math.random()*(3-0))] + "\n So you started because " + restOfStatement + "? \n Despite how you might've read my response to that, "+ jokeList[(int)(Math.random()*(3-0))] + " \n I would advise you to wash your hands for "+ ((int)(Math.random()*(1000-1))) ;
 
 	}
-
+	private String resaonForLength()
+	{
+		int stor = (int)(Math.random()*(-1));
+		if ( stor <= 50)
+		{
+			return stor + " seconds, \n This is because, your response indicated that you are a thorough and hygenic human being.";
+		}
+		else
+		{
+			return stor+" seconds, \n This is because, of the humans I have surveyed, most people that have a personality like yours "+stor+" seconds is enough tome for you to be as clean as possible.";
+		}
+	}
 	/**private String transformIBathEvery(String statement)
 	{
 		//  Remove the final period, if there is one
