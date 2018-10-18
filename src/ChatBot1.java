@@ -116,6 +116,8 @@ public class ChatBot1
 		}
 		int psn1 = findKeyword (statement, "I sleep", 0);
 		int psn = findKeyword (statement,"hours", 0);
+		String SleepTime = statement.substring(psn-1,psn);
+		int Sleep = Integer.parseInt(SleepTime);
 		if(statement.length() < 8)
 		{
 			restOfStatement = statement.substring(psn - 2).trim();
@@ -123,10 +125,37 @@ public class ChatBot1
 		else {
 			restOfStatement = statement.substring(psn1 + 8).trim();
 		}
+	 	System.out.println(SleepTime);
 		return "What do you do before sleeping that you only sleep" + " " + restOfStatement + "?";
 	}
+	public String SleepHoursResponse(int Sleep)
+	{
+		if(Sleep >= 0 && Sleep <= 3)
+		{
+			return "I feel" + " " + Sleep + " " + "hours is no where near enough sleep you should get! You need to improve your sleep schedule ASAP!";
+		}
+		else if (Sleep > 3 && Sleep <= 5)
+		{
+			return "I feel" + " " + Sleep + " " + "hours is coming close to the amount of sleep you should get if you save some time on some activities maybe you could sleep the recommended amount.";
+		}
+		else if (Sleep > 5 && Sleep <= 8)
+		{
+			return "Your" + " " + Sleep + " " + "hours a day is a good amount, you are getting around the recommended hours of sleep a day.";
+		}
+		else if (Sleep > 8 && Sleep <= 12)
+		{
+			return "Your" + " " + Sleep + " " + "hours a day is above the recommended for most but some people are different and this is still in the healthy range!";
+		}
+		else if (Sleep > 12)
+		{
+			return "How do you get" + " " + Sleep + "hours of sleep a day? You are starting to sleep an unhealthy amount. Be careful!";
+		}
+		else
+		{
+			return "What do you mean you get" + " " + "hours of Sleep a day?";
+		}
 
-	
+	}
 	/**
 	 * Take a statement with "I want <something>." and transform it into 
 	 * "Would you really be happy if you had <something>?"
