@@ -63,11 +63,28 @@ public class ChatBot2
 			System.out.println("I don't know what you just said, but it seems like you wanna know your BMI!");
 			bmiresponse = transformBMIStatement(responseStr);
 		}
-		return bmiresponse;
-
+		System.out.println(bmiresponse);
+		double bmiNum;
+		while(true)
+		{
+			System.out.println("Tell me your BMI result that you got from earlier! Feel free to round to 2 decimal places!");
+			try{
+				bmiNum = Double.parseDouble(response.next());
+				break;
+			}
+			catch(NumberFormatException e)
+			{
+				System.out.println("Invalid input!");
+			}
+		}
+		return askIfBMIIsAverage(bmiNum);
 	}
 
-	public String askIfBMIIsAverage()
+	/**
+	 * After getting the BMI, this method asks the user for their general age group and compares their BMI to the average BMI.
+	 * @return
+	 */
+	public String askIfBMIIsAverage(double bmi)
 	{
 		String questionanswer = "";
 		System.out.println("Are you a kid, adolescent, or an adult?");
@@ -75,19 +92,64 @@ public class ChatBot2
 		String questionStr = questionresponse.nextLine();
 		if(questionStr.contains("kid") || questionStr.contains("child") || questionStr.contains("children)"))
 		{
-
+			if(bmi >= 14 && bmi <= 18)
+			{
+				questionanswer = "Hey your BMI is pretty normal.";
+			}
+			else if (bmi <= 14)
+			{
+				questionanswer = "Hey you're underweight.";
+			}
+			else if (bmi >= 18)
+			{
+				questionanswer = "Hey you're overweight!";
+			}
+			else
+			{
+				questionanswer = "I don't even know what you are.";
+			}
 		}
 		else if(questionStr.contains("adolescent") || questionStr.contains("teen"))
 		{
-
+			if(bmi >= 17 && bmi <= 23)
+			{
+				questionanswer = "Hey your BMI is pretty normal.";
+			}
+			else if (bmi <= 17)
+			{
+				questionanswer = "Hey you're underweight.";
+			}
+			else if (bmi >= 23)
+			{
+				questionanswer = "Hey you're overweight!";
+			}
+			else
+			{
+				questionanswer = "I don't even know what you are.";
+			}
 		}
 		else if(questionStr.contains("adult") || questionStr.contains("grown up"))
 		{
-
+			if(bmi >= 19 && bmi <= 27)
+			{
+				questionanswer = "Hey your BMI is pretty normal.";
+			}
+			else if (bmi <= 19)
+			{
+				questionanswer = "Hey you're underweight.";
+			}
+			else if (bmi >= 27)
+			{
+				questionanswer = "Hey you're overweight!";
+			}
+			else
+			{
+				questionanswer = "I don't even know what you are.";
+			}
 		}
 		else
 		{
-			System.out.println("Tell me more about you!");
+			System.out.println("Tell me more about you! Are you a child, teenager, or adult?");
 		}
 		return questionanswer;
 	}
@@ -101,7 +163,7 @@ public class ChatBot2
 	 */
 	public String getResponse(String statement)
 	{
-		String response = "";
+		String response;
 
 		if (statement.length() == 0)
 		{
