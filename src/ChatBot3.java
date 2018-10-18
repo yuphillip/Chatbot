@@ -89,7 +89,7 @@ public class ChatBot3
 		// If they say no.
 		else if (track==0 && findKeyword(statement,"no")>=0)
 		{
-			response="oh \n Well then let me redirect you to my good buddy Chatbot sleep, \n type in sleep";
+			response="oh \n Well then let me redirect you to my good buddy Chatbot sleep, \n type in 'sleep' to meet him.";
 			track++;
 			statement="Bye";
 

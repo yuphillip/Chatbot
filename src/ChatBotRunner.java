@@ -23,7 +23,7 @@ public class ChatBotRunner
 		System.out.println("Would you like to talk about exercise, sleep, or hygiene?");
 		String statement = topic.nextLine();
 
-
+		// Want to add && where if statement is equal to one value, it will take the user to a different chatbot.
 		while (!statement.equals("Bye"))
 		{
 			//Use Logic to control which chatbot is handling the conversation\
