@@ -75,7 +75,7 @@ public class ChatBot2
 		String questionStr = questionresponse.nextLine();
 		if(questionStr.contains("kid") || questionStr.contains("child") || questionStr.contains("children)"))
 		{
-			if(bmiresponse)
+
 		}
 		else if(questionStr.contains("adolescent") || questionStr.contains("teen"))
 		{
@@ -89,7 +89,7 @@ public class ChatBot2
 		{
 			System.out.println("Tell me more about you!");
 		}
-
+		return questionanswer;
 	}
 
 	/**
@@ -132,10 +132,10 @@ public class ChatBot2
 		{
 			response = transformSportsStatement(statement);
 		}
-		else if (findKeyword(statement,"you",0) >= 0)
-		{
-			response = transformIYouStatement(statement);
-		}
+		//else if (findKeyword(statement,"you",0) >= 0)
+		//{
+		//	response = transformIYouStatement(statement);
+		//}
 		else if (findKeyword(statement,"What is my BMI?",0) >= 0)
 		{
 			response = transformBMIStatement(statement);
