@@ -36,17 +36,17 @@ public class ChatBotYu
 
 	}
 	/**
-	 * Get a default greeting 	
+	 * Get a default greeting
 	 * @return a greeting
-	 */	
+	 */
 	public String getGreeting()
 	{
 		return "Hey! How many hours do you sleep ?";
 	}
-	
+
 	/**
 	 * Gives a response to a user statement
-	 * 
+	 *
 	 * @param statement
 	 *            the user statement
 	 * @return a response based on the rules given
@@ -59,7 +59,7 @@ public class ChatBotYu
 	public String getResponse(String statement)
 	{
 		String response = "";
-		
+
 		if (statement.length() == 0)
 		{
 			response = "Say something, please.";
@@ -86,10 +86,6 @@ public class ChatBotYu
 		{
 			response = transformBeforeSleepStatement(statement);
 		}
-		else if (findKeyword(statement, "tonight",0) >= 0)
-		{
-			response = transformTonight(statement);
-		}
 		else if (findKeyword(statement, "phone", 0) >= 0) {
 			return (getPhoneResponse() + "\n" + getRandomResponse());
 		}
@@ -97,7 +93,7 @@ public class ChatBotYu
 		{
 			response = getRandomResponse();
 		}
-		
+
 		return response;
 	}
 
@@ -132,6 +128,12 @@ public class ChatBotYu
 		}
 		return SleepHoursResponse(Sleep) + "\n" + "What do you do before sleeping that you only sleep" + " " + restOfStatement + "?";
 	}
+
+	/**
+	 *
+	 * @param Sleep This represents the amount of the time the user inputted that they sleep a day.
+	 * @return This will return a different statement depending on how many hours the user sleeps.
+	 */
 	public String SleepHoursResponse(int Sleep)
 	{
 		if(Sleep >= 0 && Sleep <= 3)
@@ -160,11 +162,13 @@ public class ChatBotYu
 		}
 
 	}
+
 	/**
-	 * Take a statement with "I want <something>." and transform it into 
-	 * "Would you really be happy if you had <something>?"
-	 * @param statement the user statement, assumed to contain "I want"
-	 * @return the transformed statement
+	 *
+	 * @param statement is the statement which the use inputs in response to the chat bot's questions.
+	 * @return This will return a unique response depending on statement. It will transform any statement having the keyword
+	 * "Before sleeping I do" which will then add a unique part into the next question.
+	 *
 	 */
 	private String transformBeforeSleepStatement(String statement)
 	{
@@ -181,25 +185,7 @@ public class ChatBotYu
 		String restOfStatement = statement.substring(psn + 20).trim();
 		return "Do you think you could spend less time on" + " " + restOfStatement + "?";
 	}
-	
 
-	private String transformTonight(String statement)
-	{
-		//  Remove the final period, if there is one
-		statement = statement.trim();
-		String lastChar = statement.substring(statement
-				.length() - 1);
-		if (lastChar.equals("."))
-		{
-			statement = statement.substring(0, statement
-					.length() - 1);
-		}
-		int psnOfI = findKeyword (statement, "tonight", 0);
-		String restOfStatement = statement.substring(psnOfI + 1).trim();
-		return "Why do you " + restOfStatement + " me?";
-	}
-	
-	
 	/**
 	 * Search for one word in phrase. The search is not case
 	 * sensitive. This method will check that the given goal
@@ -263,11 +249,11 @@ public class ChatBotYu
 
 		return -1;
 	}
-	
+
 	/**
 	 * Search for one word in phrase.  The search is not case sensitive.
 	 * This method will check that the given goal is not a substring of a longer string
-	 * (so, for example, "I know" does not contain "no").  The search begins at the beginning of the string.  
+	 * (so, for example, "I know" does not contain "no").  The search begins at the beginning of the string.
 	 * @param statement the string to search
 	 * @param goal the string to search for
 	 * @return the index of the first occurrence of goal in statement or -1 if it's not found
@@ -276,19 +262,19 @@ public class ChatBotYu
 	{
 		return findKeyword (statement, goal, 0);
 	}
-	
 
 
 	/**
-	 * Pick a default response to use if nothing else fits.
-	 * @return a non-committal string
+	 * @return This gets a random number and goes through and array of neutral Response to give one to the user.
 	 */
 	private String getRandomResponse () {
 		Random r = new Random();
 		return randomNeutralResponses[r.nextInt(randomNeutralResponses.length)];
 	}
 
-
+	/**
+	 * @return This gets a random number and then goes through an array of phone facts to give to the user.
+	 */
 	private String getPhoneResponse()
 	{
 		Random r = new Random ();
