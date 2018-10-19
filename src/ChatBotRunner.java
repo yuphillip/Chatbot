@@ -14,7 +14,7 @@ public class ChatBotRunner
 	public static void main(String[] args)
 	{
 		ChatBotYu chatbotYu = new ChatBotYu();
-		ChatBot2 chatbot2 = new ChatBot2();
+		ChatBotLi chatbotLi = new ChatBotLi();
 		ChatBot3 chatbot3 = new ChatBot3();
 		
 
@@ -29,7 +29,7 @@ public class ChatBotRunner
 			//Use Logic to control which chatbot is handling the conversation\
 			//This example has only chatbot1
 			if(statement.equals("exercise"))
-				chatbot2.chatLoop(statement);
+				chatbotLi.chatLoop(statement);
 			else if (statement.equals("hygiene"))
 				chatbot3.chatLoop(statement);
 			else if (statement.equals("sleep"))
