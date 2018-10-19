@@ -8,7 +8,7 @@ import java.util.Scanner;
  * @author Brooklyn Tech CS Department
  * @version September 2018
  */
-public class ChatBot1
+public class ChatBotYu
 {
 	//emotion can alter the way our bot responds. Emotion can become more negative or positive over time.
 	int emotion = 0;
@@ -50,6 +50,11 @@ public class ChatBot1
 	 * @param statement
 	 *            the user statement
 	 * @return a response based on the rules given
+	 */
+	/**
+	 *
+	 * @param statement is the answer/response the user is giving to us.
+	 * @return This method returns a response based on the statement given to use by the user.
 	 */
 	public String getResponse(String statement)
 	{
@@ -95,12 +100,12 @@ public class ChatBot1
 		
 		return response;
 	}
-	
+
 	/**
-	 * Take a statement with "I want to <something>." and transform it into 
-	 * "Why do you want to <something>?"
-	 * @param statement the user statement, assumed to contain "I want to"
-	 * @return the transformed statement
+	 *
+	 * @param statement is the response given to us by the user.
+	 * @return This returns a unique response based on the response/keywords found in the user. In this one it substrings out
+	 * the statement either before "hours" or after "I sleep". Then it puts that statement into the question unique to the user.
 	 */
 	public String transformISleepStatement(String statement)
 	{
@@ -177,13 +182,7 @@ public class ChatBot1
 		return "Do you think you could spend less time on" + " " + restOfStatement + "?";
 	}
 	
-	
-	/**
-	 * Take a statement with "I <something> you" and transform it into 
-	 * "Why do you <something> me?"
-	 * @param statement the user statement, assumed to contain "I" followed by "you"
-	 * @return the transformed statement
-	 */
+
 	private String transformTonight(String statement)
 	{
 		//  Remove the final period, if there is one

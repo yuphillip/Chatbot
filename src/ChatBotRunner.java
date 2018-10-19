@@ -13,7 +13,7 @@ public class ChatBotRunner
 	 */
 	public static void main(String[] args)
 	{
-		ChatBot1 chatbot1 = new ChatBot1();
+		ChatBotYu chatbotYu = new ChatBotYu();
 		ChatBot2 chatbot2 = new ChatBot2();
 		ChatBot3 chatbot3 = new ChatBot3();
 		
@@ -33,7 +33,7 @@ public class ChatBotRunner
 			else if (statement.equals("hygiene"))
 				chatbot3.chatLoop(statement);
 			else if (statement.equals("sleep"))
-				chatbot1.chatLoop(statement);
+				chatbotYu.chatLoop(statement);
 			else
 				System.out.println("Repeat topic again please!");
 
