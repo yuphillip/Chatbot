@@ -46,7 +46,7 @@ public class ChatBotMoore
 	}
 	/**
 	 * Get a default greeting 	
-	 * Def and init track here. Init as 0.
+	 * Def and init track and error here. Init as 0. Used for tracking responses, and giving context sensitive feedback.
 	 * @return a greeting
 	 */	
 	public String getGreeting()
@@ -61,6 +61,8 @@ public class ChatBotMoore
 	 * 
 	 * @param statement
 	 *            the user statement
+	 *
+	 *            has a tracking variable, that allows for ditto inputs to receive different responses, based on the question being asked.
 	 * @return a response based on the rules given
 	 */
 	public String getResponse(String statement)
@@ -189,9 +191,9 @@ public class ChatBotMoore
 
 	
 	/**
-	 * Take a statement with "I want <something>." and transform it into 
-	 * "Would you really be happy if you had <something>?"
-	 * @param statement the user statement, assumed to contain "I want"
+	 * Take a statement with "I wash my hands for <something>." and transform it into
+	 * "What made you start to wash your hands for <something>"
+	 * @param statement the user statement, assumed to contain "I wash"
 	 * @return the transformed statement
 	 */
 	private String transformIWashStatement(String statement)
@@ -210,10 +212,10 @@ public class ChatBotMoore
 		return "What made you start to wash your hands for " + restOfStatement + "?";
 	}
 
-	/** Takes the persons explanation for why, and gives them a response. Snide remark about what was said, Then asks how
-	 * frequently you does it. Change this shit
+	/** Takes the persons explanation for why they started, and gives them a response. Snide remark about what was said, Then asks how
+	 * frequently you do it.
 	 * @param statement
-	 * @return
+	 * @return An emotional comment on their response.
 	 */
 	private String transformIStarted(String statement)
 	{
@@ -230,20 +232,27 @@ public class ChatBotMoore
 		{
 			int psn = findKeyword (statement, "I started because my", 0);
 			String restOfStatement = statement.substring(psn + 20).trim();
-			return sassList[(int)(Math.random()*(3-0))] + "\n So you started this way because your " +restOfStatement + "? \n Despite how you might've read my response to that, "+ jokeList[(int)(Math.random()*(3-0))] + " \n I would advise you to wash your hands for "+ ((int)(Math.random()*(1000-1)));
+			return sassList[(int)(Math.random()*(3-0))] + "\n So you started this way because your " +restOfStatement + "? \n Despite how you might've read my response to that, "+ jokeList[(int)(Math.random()*(3-0))] + " \n I would advise you to wash your hands for "+ (reasonForLength());
 		}
 		if (findKeyword(statement,"I started because I")>=0)
 		{
 			int psn = findKeyword (statement, "I started because I", 0);
 			String restOfStatement = statement.substring(psn + 19).trim();
-			return sassList[(int)(Math.random()*(3-0))] + "\n So you started because you " +restOfStatement + "? \n Despite how you might've read my response to that, "+ jokeList[(int)(Math.random()*(3-0))] + " \n I would advise you to wash your hands for "+ ((int)(Math.random()*(1000-1))) ;
+			return sassList[(int)(Math.random()*(3-0))] + "\n So you started because you " +restOfStatement + "? \n Despite how you might've read my response to that, "+ jokeList[(int)(Math.random()*(3-0))] + " \n I would advise you to wash your hands for "+ (reasonForLength()) ;
 		}
 		int psn = findKeyword (statement, "I started because", 0);
 		String restOfStatement = statement.substring(psn + 17).trim();
-		return sassList[(int)(Math.random()*(3-0))] + "\n So you started because " + restOfStatement + "? \n Despite how you might've read my response to that, "+ jokeList[(int)(Math.random()*(3-0))] + " \n I would advise you to wash your hands for "+ (resaonForLength()) ;
+		return sassList[(int)(Math.random()*(3-0))] + "\n So you started because " + restOfStatement + "? \n Despite how you might've read my response to that, "+ jokeList[(int)(Math.random()*(3-0))] + " \n I would advise you to wash your hands for "+ (reasonForLength()) ;
 
 	}
-	private String resaonForLength()
+
+	/**
+	 *
+	 *
+	 * @param: None
+	 * @return: Based on the number you typed in initially, a feedback is given on how long you should wash your hands for.
+	 */
+	private String reasonForLength()
 	{
 	    int timeInt= Integer.parseInt(time[0]);
 		int stor = (int)(Math.random()*(timeInt-1));
