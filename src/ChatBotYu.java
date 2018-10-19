@@ -82,7 +82,7 @@ public class ChatBotYu
 		{
 			response = transformISleepStatement(statement);
 		}
-		else if (findKeyword(statement, "Before sleeping I",0) >= 0)
+		else if (findKeyword(statement, "before sleeping I",0) >= 0)
 		{
 			response = transformBeforeSleepStatement(statement);
 		}
@@ -181,7 +181,7 @@ public class ChatBotYu
 			statement = statement.substring(0, statement
 					.length() - 1);
 		}
-		int psn = findKeyword (statement, "Before sleeping I do", 0);
+		int psn = findKeyword (statement, "before sleeping I do", 0);
 		String restOfStatement = statement.substring(psn + 20).trim();
 		return "Do you think you could spend less time on" + " " + restOfStatement + "?";
 	}
