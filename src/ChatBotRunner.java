@@ -15,7 +15,7 @@ public class ChatBotRunner
 	{
 		ChatBotYu chatbotYu = new ChatBotYu();
 		ChatBotLi chatbotLi = new ChatBotLi();
-		ChatBot3 chatbot3 = new ChatBot3();
+		ChatBotMoore chatbotMoore = new ChatBotMoore();
 		
 
 		Scanner topic = new Scanner (System.in);
@@ -31,7 +31,7 @@ public class ChatBotRunner
 			if(statement.equals("exercise"))
 				chatbotLi.chatLoop(statement);
 			else if (statement.equals("hygiene"))
-				chatbot3.chatLoop(statement);
+				chatbotMoore.chatLoop(statement);
 			else if (statement.equals("sleep"))
 				chatbotYu.chatLoop(statement);
 			else
