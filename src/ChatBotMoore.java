@@ -9,7 +9,7 @@ import java.util.Scanner;
  * @author Brooklyn Tech CS Department
  * @version September 2018
  */
-public class ChatBot3
+public class ChatBotMoore
 {
 	//emotion can alter the way our bot responds. Emotion can become more negative or positive over time.
 	int emotion = 0;
@@ -240,7 +240,7 @@ public class ChatBot3
 		}
 		int psn = findKeyword (statement, "I started because", 0);
 		String restOfStatement = statement.substring(psn + 17).trim();
-		return sassList[(int)(Math.random()*(3-0))] + "\n So you started because " + restOfStatement + "? \n Despite how you might've read my response to that, "+ jokeList[(int)(Math.random()*(3-0))] + " \n I would advise you to wash your hands for "+ ((int)(Math.random()*(1000-1))) ;
+		return sassList[(int)(Math.random()*(3-0))] + "\n So you started because " + restOfStatement + "? \n Despite how you might've read my response to that, "+ jokeList[(int)(Math.random()*(3-0))] + " \n I would advise you to wash your hands for "+ (resaonForLength()) ;
 
 	}
 	private String resaonForLength()
