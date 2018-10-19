@@ -45,15 +45,15 @@ public class ChatBotLi
 	 */
 	public String getGreeting()
 	{
-		String bmiresponse = "";
+		String bmiresponse;
 		System.out.println("Would you like to find out your bmi?");
-		Scanner response = new Scanner (System.in);
+		Scanner response = new Scanner (System.in); //Asks the user, but really they want to find their bmi.
 		String responseStr = response.nextLine();
 		if(responseStr.contains("yes") || responseStr.contains("sure") || responseStr.contains("ok") || responseStr.contains("cool"))
 		{
 			bmiresponse = transformBMIStatement(responseStr);
 		}
-		else if(responseStr.contains("no") || responseStr.contains("no thank you") || responseStr.contains("non"))
+		else if(responseStr.contains("no") || responseStr.contains("no thank you") || responseStr.contains("non") || responseStr.contains("maybe"))
 		{
 			System.out.println("Cmon, you know you want to, be honest!");
 			bmiresponse = transformBMIStatement(responseStr);
@@ -67,7 +67,7 @@ public class ChatBotLi
 		double bmiNum;
 		while(true)
 		{
-			System.out.println("Tell me your BMI result that you got from earlier! Feel free to round to 2 decimal places!");
+			System.out.println("Tell me your BMI result that you got from earlier! Feel free to round to 2 decimal places!"); //Try catching the user's response to their rounded BMI.
 			try{
 				bmiNum = Double.parseDouble(response.next());
 				break;
@@ -81,20 +81,21 @@ public class ChatBotLi
 	}
 
 	/**
-	 * After getting the BMI, this method asks the user for their general age group and compares their BMI to the average BMI.
+	 * After finding the BMI it will ask the user for their age range and say if their BMI is average or not.
+	 * @param bmi The BMI double obtained from transformBMIStatement
 	 * @return
 	 */
 	public String askIfBMIIsAverage(double bmi)
 	{
 		String questionanswer = "";
-		System.out.println("Are you a kid, adolescent, or an adult?");
+		System.out.println("Are you a kid, adolescent/teenager, or an adult?");
 		Scanner questionresponse = new Scanner(System.in);
 		String questionStr = questionresponse.nextLine();
 		if(questionStr.contains("kid") || questionStr.contains("child") || questionStr.contains("children)"))
 		{
 			if(bmi >= 14 && bmi <= 18)
 			{
-				questionanswer = "Hey your BMI is pretty normal.";
+				questionanswer = "Hey your BMI is pretty normal."; //Different responses for different bmi ranges
 			}
 			else if (bmi <= 14)
 			{
@@ -202,6 +203,10 @@ public class ChatBotLi
 		{
 			response = transformBMIStatement(statement);
 		}
+		else if (findKeyword(statement,"I want to find my BMI",0) >= 0)
+		{
+			response = transformBMIStatement(statement);
+		}
 		else
 		{
 			response = getRandomResponse();
@@ -257,7 +262,7 @@ public class ChatBotLi
 
 	/**
 	 * Gets user's height and weights and returns BMI.
-	 * @param statement
+	 * @param statement the statement of the user.
 	 * @return
 	 */
 	private String transformBMIStatement(String statement)
@@ -273,7 +278,7 @@ public class ChatBotLi
 			System.out.println("What is your weight in kg?");
 			boolean condition2 = false;
 			while (!condition2) {
-				try {
+				try { //different try catch blocks so the user and accurately input their height and weight in meters
 					weight = Double.parseDouble(bmiscan.nextLine());
 					condition2 = true;
 				} catch (NumberFormatException e) {
@@ -292,8 +297,17 @@ public class ChatBotLi
 					System.out.println("What is your height in meters?");
 				}
 			}
-			bmi = weight / (height * height);
-			bmistr = Double.toString(bmi);
+			if(height != 0 && weight != 0)
+			{
+				bmi = weight / (height * height);
+				bmistr = Double.toString(bmi);
+				return "Your BMI is: " + bmistr + ".";
+			}
+			else
+			{
+				System.out.println("Hey you can't be 0 meters tall or 0 kilograms heavy!");
+				bmistr = transformBMIStatement(statement);
+			}
 		condition = true;
 		}
 		return "Your BMI is: " + bmistr + ".";
@@ -452,7 +466,9 @@ public class ChatBotLi
 			"It's all boolean to me.",
 			"So, would you like to go for a walk?",
 			"Could you say that again?",
-			"Use a full sentence!"
+			"Use a full sentence!",
+			"Are you sure you're fit?",
+			"How often do you exercise?"
 	};
 	private String [] randomAngryResponses = {"Bahumbug.", "Harumph", "The rage consumes me!", "Speak a proper sentence!", "I don't have all day to talk to you!"};
 	private String [] randomHappyResponses = {"H A P P Y, what's that spell?", "Today is a good day", "You make me feel like a brand new pair of shoes."};
