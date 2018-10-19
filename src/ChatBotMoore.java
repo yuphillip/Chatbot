@@ -18,7 +18,7 @@ public class ChatBotMoore
 	//error, if you gave the wrong answer before, the error counter goes up, and will give you a new response, if your answer is wrong again."
 	int error=0;
 
-	String[] time={};
+	String[] time;
 
 
 
@@ -209,6 +209,7 @@ public class ChatBotMoore
 		}
 		int psn = findKeyword (statement, "I wash my hands for", 0);
 		String restOfStatement = statement.substring(psn + 19).trim();
+
 		return "What made you start to wash your hands for " + restOfStatement + "?";
 	}
 
@@ -232,17 +233,17 @@ public class ChatBotMoore
 		{
 			int psn = findKeyword (statement, "I started because my", 0);
 			String restOfStatement = statement.substring(psn + 20).trim();
-			return sassList[(int)(Math.random()*(3-0))] + "\n So you started this way because your " +restOfStatement + "? \n Despite how you might've read my response to that, "+ jokeList[(int)(Math.random()*(3-0))] + " \n I would advise you to wash your hands for "+ (reasonForLength());
+			return sassList[(int)(Math.random()*(3-0))] + "\n So you started this way because your " +restOfStatement + "? \n Despite how you might've read my response to that, "+ jokeList[(int)(Math.random()*(3-0))] + " \n I would advise you to wash your hands for "+ (int)(Math.random()*(60-1)) + "secs.";
 		}
 		if (findKeyword(statement,"I started because I")>=0)
 		{
 			int psn = findKeyword (statement, "I started because I", 0);
 			String restOfStatement = statement.substring(psn + 19).trim();
-			return sassList[(int)(Math.random()*(3-0))] + "\n So you started because you " +restOfStatement + "? \n Despite how you might've read my response to that, "+ jokeList[(int)(Math.random()*(3-0))] + " \n I would advise you to wash your hands for "+ (reasonForLength()) ;
+			return sassList[(int)(Math.random()*(3-0))] + "\n So you started because you " +restOfStatement + "? \n Despite how you might've read my response to that, "+ jokeList[(int)(Math.random()*(3-0))] + " \n I would advise you to wash your hands for "+ (int)(Math.random()*(60-1)) + "secs";
 		}
 		int psn = findKeyword (statement, "I started because", 0);
 		String restOfStatement = statement.substring(psn + 17).trim();
-		return sassList[(int)(Math.random()*(3-0))] + "\n So you started because " + restOfStatement + "? \n Despite how you might've read my response to that, "+ jokeList[(int)(Math.random()*(3-0))] + " \n I would advise you to wash your hands for "+ (reasonForLength()) ;
+		return sassList[(int)(Math.random()*(3-0))] + "\n So you started because " + restOfStatement + "? \n Despite how you might've read my response to that, "+ jokeList[(int)(Math.random()*(3-0))] + " \n I would advise you to wash your hands for "+ (int)(Math.random()*(60-1))+ "secs";
 
 	}
 
