@@ -116,7 +116,7 @@ public class ChatBot1
 		}
 		int psn1 = findKeyword (statement, "I sleep", 0);
 		int psn = findKeyword (statement,"hours", 0);
-		String SleepTime = statement.substring(psn-2,psn);
+		String SleepTime = statement.substring(psn-2,psn-1);
 		int Sleep = Integer.parseInt(SleepTime);
 		if(statement.length() < 8)
 		{
@@ -306,7 +306,8 @@ public class ChatBot1
 			"I do too! What else do you do ?",
 			"Sleep is vital to having a healthy lifestyle, Do you think you're healthy?",
 			"I feel that sleeping more could always help!",
-			"Spending less time online is always a good start!"
+			"Spending less time online is always a good start!",
+                    "I feel that getting the recommended hours of sleep everyday should be prioritized."
 	};
 	
 }
