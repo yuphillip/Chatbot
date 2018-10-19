@@ -18,6 +18,8 @@ public class ChatBot3
 	//error, if you gave the wrong answer before, the error counter goes up, and will give you a new response, if your answer is wrong again."
 	int error=0;
 
+	String[] time={};
+
 
 
 	/**
@@ -181,6 +183,7 @@ public class ChatBot3
 		}
 		int psn = findKeyword (statement, "I want to", 0);
 		String restOfStatement = statement.substring(psn + 9).trim();
+		time[0]= restOfStatement;
 		return "Why do you want to " + restOfStatement + "?";
 	}
 
@@ -242,14 +245,16 @@ public class ChatBot3
 	}
 	private String resaonForLength()
 	{
-		int stor = (int)(Math.random()*(-1));
-		if ( stor <= 50)
+	    int timeInt= Integer.parseInt(time[0]);
+		int stor = (int)(Math.random()*(timeInt-1));
+		if ( timeInt <= 20)
 		{
-			return stor + " seconds, \n This is because, your response indicated that you are a thorough and hygenic human being.";
+		    
+			return stor + " seconds, \n This is because, you could stand to wash your hands a bit longer. And your reason for why you wash your hands for so few seconds seems kind of superfluous. \n Why don't you bring a friend to the computer, so i can see how filthy they are. ";
 		}
 		else
 		{
-			return stor+" seconds, \n This is because, of the humans I have surveyed, most people that have a personality like yours "+stor+" seconds is enough tome for you to be as clean as possible.";
+			return stor+" seconds, \n This is because, of the humans I have surveyed, most people that have a personality like yours "+stor+" seconds is enough tome for you to be as clean as possible. \n Why don't you bring a friend to the computer, so i can see how filthy they are.";
 		}
 	}
 	/**private String transformIBathEvery(String statement)
